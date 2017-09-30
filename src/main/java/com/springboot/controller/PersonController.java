@@ -2,8 +2,10 @@ package com.springboot.controller;
 
 import com.springboot.common.constant.StatusConstant;
 import com.springboot.common.entity.Resp;
+import com.springboot.dao.PersonDao;
 import com.springboot.dao.PersonRepository;
 import com.springboot.entity.Person;
+import com.springboot.mapper.PersonMapper;
 import com.springboot.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,9 @@ public class PersonController {
 
     @Autowired
     private PersonService personService;
+
+    @Autowired
+    private PersonDao personDao;
 
     @RequestMapping(value = "save", method = RequestMethod.GET)
     public Resp save() {
@@ -122,5 +127,26 @@ public class PersonController {
     public String evit(Long id){
         personService.remove(id);
         return "ok";
+    }
+
+    /**
+     * 测试criteria Api
+     * @return
+     */
+    @RequestMapping(value = "criteriaApi",method = RequestMethod.GET)
+    public Resp criteriaApi(){
+        List<Person> people=personDao.getPersonInfo("胡廷聪",24,"");
+        return new Resp(StatusConstant.HTTP_SUCCESS,people);
+    }
+
+    /**
+     * mybatis测试
+     */
+    @Autowired
+    private PersonMapper personMapper;
+    @RequestMapping(value = "mybatis",method = RequestMethod.GET)
+    public Resp mybatis(){
+        Person person=personMapper.findUserById(2);
+        return new Resp(StatusConstant.HTTP_SUCCESS,person);
     }
 }

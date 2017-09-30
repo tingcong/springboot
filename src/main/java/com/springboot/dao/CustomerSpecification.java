@@ -35,6 +35,7 @@ public class CustomerSpecification {
 
         //获取当前实体类对象类的类型
         final Class<T> type= (Class<T>) example.getClass();
+
         return new Specification<T>() {
             @Override
             public Predicate toPredicate(Root<T> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {

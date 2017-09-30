@@ -17,7 +17,7 @@ import java.util.List;
  *      Spring Data REST的默认规则是在实体类之后加S来形成路径，
  *      可以通过@RepositoryRestResource注解来修改
  */
-@RepositoryRestResource(path = "people")
+//@RepositoryRestResource(path = "people")
 public interface PersonRepository extends JpaRepository<Person,Long>{
     List<Person> findByAddress(String name);
 
