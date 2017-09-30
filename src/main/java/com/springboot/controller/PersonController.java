@@ -1,5 +1,6 @@
 package com.springboot.controller;
 
+import com.springboot.common.annotation.Authentication;
 import com.springboot.common.constant.StatusConstant;
 import com.springboot.common.entity.Resp;
 import com.springboot.dao.PersonDao;
@@ -47,6 +48,7 @@ public class PersonController {
         return resp;
     }
 
+    @Authentication(authentication = "visitor")
     @RequestMapping(value = "findByAddress", method = RequestMethod.GET)
     public Resp findByAddress() {
         Resp resp = new Resp();
@@ -85,6 +87,7 @@ public class PersonController {
      * 排序测试
      * @return
      */
+    @Authentication(authentication = "membership")
     @RequestMapping(value = "sort",method = RequestMethod.GET)
     public Resp sort(){
         List<Person> people=personRepository.findAll(new Sort(Sort.Direction.ASC,"age"));
@@ -95,6 +98,7 @@ public class PersonController {
      * 分页测试
      * @return
      */
+    @Authentication(authentication = "ordinary")
     @RequestMapping(value = "page",method = RequestMethod.GET)
     public Resp page(){
         Page<Person> personPage=personRepository.findAll(new PageRequest(1,2));
